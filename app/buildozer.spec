@@ -36,8 +36,7 @@ version = 2.93
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy, sqlite3, beautifulsoup, openssl, sqlalchemy, git+https://github.com/andremiras/kivymd.git@develop, plyer
-
+requirements = kivy, sqlite3, BeautifulSoup==3.2.1, Cython==0.24.1, docutils==0.12, git+https://github.com/kivy/kivy, Kivy-Garden==0.1.4, nose==1.3.7, pexpect==4.0.1, plyer==1.2.4, ptyprocess==0.5, pushould-python==0.0.3, Pygments==2.1.3, python-gnupg==0.3.8, PyYAML==3.11, six==1.10.0, socketIO-client==0.6.5, SQLAlchemy==1.0.12, websocket-client==0.37.0
 #workaround fix
 p4a.local_recipes = %(source.dir)s/.buildozer/android/platform/python-for-android/recipes
 # (str) Custom source folders for requirements
