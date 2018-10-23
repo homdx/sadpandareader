@@ -62,13 +62,7 @@ RUN cd /tmp/ && buildozer init && buildozer android adb -- version \
     && cd - && cd ${WORK_DIR} \
     # fixes source and target JDK version, refs https://github.com/kivy/buildozer/issues/625
     && sed s/'name="java.source" value="1.5"'/'name="java.source" value="7"'/ -i ${HOME_DIR}/.buildozer/android/platform/android-sdk-20/tools/ant/build.xml \ 
-    && sed s/'name="java.target" value="1.5"'/'name="java.target" value="7"'/ -i ${HOME_DIR}/.buildozer/android/platform/android-sdk-20/tools/ant/build.xml \
-    && set -ex \
-  && wget https://www.crystax.net/download/crystax-ndk-${CRYSTAX_NDK_VERSION}-linux-x86_64.tar.xz?interactive=true -O ~/.buildozer/crystax-${CRYSTAX_NDK_VERSION}.tar.xz \
-  && cd ~/.buildozer/ \
-  && echo "${CRYSTAX_HASH}  crystax-${CRYSTAX_NDK_VERSION}.tar.xz" | sha256sum -c \
-  && time tar -xf crystax-${CRYSTAX_NDK_VERSION}.tar.xz && rm ~/.buildozer/crystax-${CRYSTAX_NDK_VERSION}.tar.xz
-
+    && sed s/'name="java.target" value="1.5"'/'name="java.target" value="7"'/ -i ${HOME_DIR}/.buildozer/android/platform/android-sdk-20/tools/ant/build.xml
 
 COPY app .
 
@@ -79,7 +73,9 @@ RUN sudo chown user ${WORK_DIR} -Rv
 
 #USER ${USER}
 
-RUN echo '-----Python 3 ----' && time buildozer android debug || echo "Fix build apk"
+RUN echo '-----Python 2 ----' && time buildozer android debug || echo "Fix build apk" \
+&& cp -vf /home/user/hostcwd/.buildozer/android/platform/build/dists/sadpandareader/bin/Sadpandareader-2.93-debug.apk ${WORK_DIR}
+
 CMD tail -f /var/log/faillog
 
 #ENTRYPOINT ["buildozer"]
